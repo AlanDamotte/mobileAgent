@@ -17,4 +17,7 @@ public class BAMServerClassLoader extends URLClassLoader{
 		super(new URL[]{},loader);
 		classMap = new HashMap<String,Class<?>>();
 	}
+	
+	public void addURL(URL url){
+	}
 }
