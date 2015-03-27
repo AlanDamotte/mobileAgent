@@ -9,11 +9,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import jus.aor.mobilagent.kernel.Etape;
+
 /**
  * Définit la feuille de route que l'agent va suivre
  * @author  Morat
  */
-class Route implements Iterable<Etape>, Serializable{
+public class Route implements Iterable<Etape>, Serializable{
 	private static final long serialVersionUID = 9081294824590167316L;
 	/** la liste des étapes à parcourir autres que la dernière */
 	protected List<Etape> route;
@@ -39,15 +41,28 @@ class Route implements Iterable<Etape>, Serializable{
 	 * Restitue la prochaine étape ou la dernière qui est la base de départ.
 	 * @return la prochaine étape.
 	 */
-	Etape get() throws NoSuchElementException {
-		//A COMPLETER
+	public Etape get() throws NoSuchElementException {
+		if(route.size()!=0){
+			return route.get(0);
+		} else {
+			throw new NoSuchElementException();
+		}
 	}
 	/**
 	 * Restitue la prochaine étape et élimine de la route ou la dernière qui est la base de départ.
 	 * @return la prochaine étape.
 	 */
-	Etape next() throws NoSuchElementException {
-		//A COMPLETER
+	public Etape next() throws NoSuchElementException {
+		if(this.hasNext()){
+			Etape etape = route.get(0);
+			route.remove(0);
+			if(route.size()==0){
+				hasNext = false;
+			}
+			return etape;
+		} else {
+			throw new NoSuchElementException();
+		}
 	}
 	/**
 	 * Il y a-t-il encore une étape à parcourir.

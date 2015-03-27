@@ -25,6 +25,8 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import jus.aor.mobilagent.kernel.IOHandler;
+
 /**
  * @author Morat 
  */
@@ -57,9 +59,15 @@ public class Starter{
 			/* Mise en place du logger pour tracer l'application */
 			String loggerName = "jus/aor/mobilagent/"+InetAddress.getLocalHost().getHostName()+"/"+args[1];
 			logger = Logger.getLogger(loggerName);
-//			logger.setUseParentHandlers(false);
-			logger.addHandler(new IOHandler());
-			logger.setLevel(level);
+			logger.setLevel(Level.FINE);
+			logger.setUseParentHandlers(false);
+	
+			IOHandler io=new IOHandler();
+
+			logger.addHandler(io);
+
+			io.setLevel(Level.FINE);
+
 			/* Récupération d'informations de configuration */
 			DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			doc = docBuilder.parse(new File(args[0]));
@@ -77,7 +85,9 @@ public class Starter{
 	}
 	@SuppressWarnings("unchecked")
 	protected void createServer(int port, String name) throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		loader = new BAMServerClassLoader(new URL[]{new URL("file:///.../MobilagentServer.jar")},this.getClass().getClassLoader());
+		logger.log(Level.FINE, "Initialisation de la création du serveur");
+		loader = new BAMServerClassLoader();
+		loader.addURL(new URL("file:/home/romain/Documents/RICM4/S2/AR/mobileAgent/Projet/MobileAgent/Mobilagent.jar"));
 		classe = (Class<jus.aor.mobilagent.kernel.Server>)Class.forName("jus.aor.mobilagent.kernel.Server",true,loader);
 		server = classe.getConstructor(int.class,String.class).newInstance(port,name);
 	}
@@ -85,6 +95,7 @@ public class Starter{
 	 * Ajoute les services définis dans le fichier de configuration
 	 */
 	protected void addServices() {
+		logger.log(Level.FINE, "Ajout du service");
 		NamedNodeMap attrs;
 		Object[] args;
 		String codeBase, classeName, name;
@@ -105,8 +116,12 @@ public class Starter{
 	 * @param args les arguments de la construction du service
 	 */
 	protected void addService(String name, String classeName, String codeBase, Object... args) {
+		logger.log(Level.FINE, "1 serveur ajouté");
+		Method method;
 		try{
-			server.addService(name,classeName,codeBase,args);
+			method = classe.getDeclaredMethod("addService",String.class,String.class,String.class,Object[].class);
+			method.setAccessible(true);
+			method.invoke(server,name,classeName,codeBase,args);
 		}catch(Exception e){
 			logger.log(Level.FINE," erreur durant l'ajout d'un service",e);
 		}
@@ -115,6 +130,7 @@ public class Starter{
 	 * déploiement les agents définis dans le fichier de configuration
 	 */
 	protected void deployAgents() {
+		logger.log(Level.FINE, "Deploiement des agents");
 		NamedNodeMap attrsAgent, attrsEtape;
 		Object[] args=null;
 		String codeBase;
@@ -131,6 +147,7 @@ public class Starter{
 				serverAction.add(attrsEtape.getNamedItem("action").getNodeValue());
 				serverAddress.add(attrsEtape.getNamedItem("server").getNodeValue());
 			}
+			System.out.println(classeName + " " + args + " " + codeBase + " " + serverAddress + " " + serverAction);
 			deployAgent(classeName, args, codeBase,serverAddress, serverAction);
 		}
 	}
@@ -143,10 +160,14 @@ public class Starter{
 	 * @param serverAction la liste des actions des étapes
 	 */
 	protected void deployAgent(String classeName, Object[] args, String codeBase, List<String> serverAddress, List<String> serverAction) {
+		logger.log(Level.FINE, "1 agent déployé");
+		Method method;
 		try{
-			server.deployAgent(classeName,args,codeBase,serverAddress,serverAction);
+			method = classe.getDeclaredMethod("deployAgent",String.class,Object[].class, String.class,List.class,List.class);
+			method.setAccessible(true);
+			method.invoke(server, classeName, args, codeBase,serverAddress, serverAction);
 		}catch(Exception e){
-			logger.log(Level.FINE," erreur durant le déploiement de l'agent",e);
+			logger.log(Level.FINE, "erreur durant le lancement du serveur"+e);
 		}
 	}
 	private static Iterable<Node> iterable(final Node racine, final String element){

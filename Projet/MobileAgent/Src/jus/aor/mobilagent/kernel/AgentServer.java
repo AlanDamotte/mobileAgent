@@ -55,6 +55,7 @@ public class AgentServer implements Runnable{
 		
 		try {
 			socketServer = new ServerSocket(port);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,7 +66,6 @@ public class AgentServer implements Runnable{
 		
 		while(true){
 			try {
-				
 				socketClient = socketServer.accept();
 				ObjectInputStream ois = new ObjectInputStream(socketClient.getInputStream());
 				jar = (Jar) ois.readObject();
