@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="Src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/home/romain/Documents/RICM4/S2/AR/Projet/jus.util.jar"/>
+	<classpathentry kind="lib" path="/home/alan/Documents/RICM4/S2/AR/Projet/jus.util.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

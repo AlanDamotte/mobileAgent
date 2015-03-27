@@ -41,7 +41,6 @@ public final class Server implements _Server{
 	protected BAMServerClassLoader serverLoader;
 	protected Agent agent;
 	protected Class<?> classe;
-	
 	/**
 	 * Démarre un serveur de type mobilagent 
 	 * @param port le port d'écuote du serveur d'agent 
@@ -116,6 +115,7 @@ public final class Server implements _Server{
 					agent.addEtape(new Etape(new URI(etapeAddress.get(i)),a ));	
 				}
 				agentServer.runAgent(agent);
+
 		}catch(Exception ex){
 			logger.log(Level.FINE," erreur durant le lancement du serveur"+this,ex);
 			return;
