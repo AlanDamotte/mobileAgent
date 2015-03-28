@@ -106,7 +106,7 @@ public final class Server implements _Server{
 
 				agent = (_Agent) agentClass.getConstructor(Object[].class).newInstance(new Object[]{args});
 				
-				agent.init(loader,agentServer, name,new Jar("/home/romain/Documents/RICM4/S2/AR/mobileAgent/Projet/MobileAgent/hello.jar"));
+				agent.init(loader,agentServer, name,new Jar("/home/romain/Documents/RICM4/S2/AR/mobileAgent/Projet/MobileAgent/"+codeBase));
 				
 				for(int i=0; i<etapeAddress.size(); i++){
 					Field f = agentClass.getDeclaredField(etapeAction.get(i));
