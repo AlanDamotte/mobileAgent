@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE HTML PUBLIC  "-//W3C//DTD HTML 4.0 Transitional//EN" "Server.dtd"> 
 <root>
-	<port value="4444"/>
-	<service name="Telephones" codebase="LookForHotel.jar" class="jus.aor.mobilagent.lookforhotel.Annuaire" args="Projet/MobileAgent/DataStore/Annuaire.xml"/>
+	<port value="2002"/>
+	<service name="Telephones" 
+		codebase="Annuaire.jar" 
+		class="jus.aor.mobilagent.lookforhotel.Annuaire" 
+		args="Projet/MobileAgent/DataStore/Annuaire.xml"/>
 </root>
 
