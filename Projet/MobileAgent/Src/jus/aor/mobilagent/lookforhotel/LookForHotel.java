@@ -6,9 +6,7 @@ package jus.aor.mobilagent.lookforhotel;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Set;
 
 import jus.aor.mobilagent.kernel.Numero;
 import jus.aor.mobilagent.kernel._Service;
@@ -20,6 +18,7 @@ import jus.aor.mobilagent.kernel.Agent;
  * Représente un client effectuant une requête lui permettant d'obtenir les numéros de téléphone des hôtels répondant à son critère de choix.
  * @author  Morat
  */
+@SuppressWarnings("serial")
 public class LookForHotel extends Agent{
 	/** le critère de localisaton choisi */
 	private String localisation;

@@ -47,6 +47,7 @@ public class Starter{
 	 */
 	public Starter(String... args){
 		// récupération du niveau de log
+		@SuppressWarnings("unused")
 		java.util.logging.Level level;
 		level=java.util.logging.Level.ALL;
 		try {

@@ -74,7 +74,6 @@ public final class Server implements _Server{
 	 */
 	public final void addService(String name, String classeName, String codeBase, Object... args) {
 		logger.log(Level.FINE, "	Serveur: ajout service");
-		//System.out.println("	Serveur: ajout service");
 		_Service<?> service;
 		try {
 			serverLoader.addURL("Projet/MobileAgent/"+codeBase);
