@@ -6,8 +6,6 @@ package jus.aor.mobilagent.kernel;
 
 import java.io.Serializable;
 
-import jus.aor.mobilagent.lookforhotel.Numero;
-
 /**
  * Un hotel qui est caractérisé par son nom et sa localisation.
  * @author Morat 
@@ -18,6 +16,7 @@ public class Hotel implements Serializable{
 	public String localisation;
 	/** le nom de l'hôtel */
 	public String name;
+	@SuppressWarnings("unused")
 	private Numero numero;
 	/**
 	 * Définition d'un hôtel par son nom et sa localisation.

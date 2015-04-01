@@ -48,13 +48,6 @@ public class Starter{
 	public Starter(String... args){
 		// récupération du niveau de log
 		java.util.logging.Level level;
-		/*try {
-			level = Level.parse(System.getProperty("LEVEL"));			
-		}catch(NullPointerException e) {
-			level=java.util.logging.Level.OFF;
-		}catch(IllegalArgumentException e) {
-			level=java.util.logging.Level.SEVERE;
-		}*/
 		level=java.util.logging.Level.ALL;
 		try {
 			/* Mise en place du logger pour tracer l'application */

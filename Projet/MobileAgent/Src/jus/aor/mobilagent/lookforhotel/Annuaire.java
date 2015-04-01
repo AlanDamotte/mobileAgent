@@ -14,6 +14,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import jus.aor.mobilagent.kernel.Hotel;
+import jus.aor.mobilagent.kernel.Numero;
 import jus.aor.mobilagent.kernel._Annuaire;
 import jus.aor.mobilagent.kernel._Service;
 

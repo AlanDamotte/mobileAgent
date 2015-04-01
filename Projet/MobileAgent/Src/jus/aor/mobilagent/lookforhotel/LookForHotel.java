@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
 
+import jus.aor.mobilagent.kernel.Numero;
 import jus.aor.mobilagent.kernel._Service;
 import jus.aor.mobilagent.kernel._Action;
 import jus.aor.mobilagent.kernel.Agent;

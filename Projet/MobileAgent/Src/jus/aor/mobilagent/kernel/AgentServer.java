@@ -72,6 +72,7 @@ public class AgentServer implements Runnable{
 				BAMAgent.integrateCode(jar);
 				AgentInputStream ais = new AgentInputStream(socketClient.getInputStream(),BAMAgent);
 				ag = (_Agent) ais.readObject();
+				ais.close();
 				ag.init(BAMAgent, this, this.name,jar);
 				runAgent(ag);
 				

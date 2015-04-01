@@ -3,7 +3,6 @@
  */
 package jus.aor.mobilagent.kernel;
 
-import jus.aor.mobilagent.lookforhotel.Numero;
 
 /**
  * Définit un annuaire téléphonique élémentaire permettant, étant donnée un abonné, d'obtenir son numéro de téléphone.
