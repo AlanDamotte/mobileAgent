@@ -19,6 +19,7 @@ public class Agent implements _Agent{
 	
 
 	private static final long serialVersionUID = 1L;
+	private boolean first=false;
 	protected transient BAMAgentClassLoader loader;
 	protected transient AgentServer server;
 	protected transient String serverName;
@@ -28,7 +29,7 @@ public class Agent implements _Agent{
 	@Override
 	public void run() {
 		// On execute l'action a effectuer sur le serveur actuel: l'etape est supprimee en meme temps
-		if(route.hasNext()){
+		if(route.hasNext() && first){
 			route.get().action.execute();
 			route.next();
 		}
@@ -37,6 +38,7 @@ public class Agent implements _Agent{
 			
 			// On passe sur le prochain serveur:
 			// On recupere l'URI du serveur destination dont on extrait l'host et le port pour creer le socket de connexion au serveur
+				first=true;
 				Socket socket;
 				try {
 					socket = new Socket(route.get().server.getHost(),route.get().server.getPort());

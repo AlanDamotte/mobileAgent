@@ -4,7 +4,7 @@
 	<port value="2050"/>
 	<agent class="jus.aor.mobilagent.lookforhotel.LookForHotel" 
 	codebase="LookForHotel.jar"
-	 args="">
+	 args="Paris">
 		<etape server="mobilagent://localhost:2000/" action="findHotel" />
 		<etape server="mobilagent://localhost:2001/" action="findHotel" />
 		<etape server="mobilagent://localhost:2002/" action="findTelephone" />

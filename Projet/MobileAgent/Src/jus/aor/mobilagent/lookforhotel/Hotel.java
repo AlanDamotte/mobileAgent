@@ -3,15 +3,22 @@
  */
 
 package jus.aor.mobilagent.lookforhotel;
+
+import java.io.Serializable;
+
+import jus.aor.mobilagent.lookforhotel.Numero;
+
 /**
  * Un hotel qui est caractérisé par son nom et sa localisation.
  * @author Morat 
  */
-public class Hotel {
+@SuppressWarnings("serial")
+public class Hotel implements Serializable{
 	/** la localisation de l'hôtel */
 	public String localisation;
 	/** le nom de l'hôtel */
 	public String name;
+	private Numero numero;
 	/**
 	 * Définition d'un hôtel par son nom et sa localisation.
 	 * @param name le nom de l'hôtel
@@ -23,4 +30,8 @@ public class Hotel {
 	 */
 	@Override
 	public String toString() {return "Hotel{"+name+","+localisation+"}";}
+	
+	public void addTel(Numero num){
+		this.numero = num;
+	}
 }

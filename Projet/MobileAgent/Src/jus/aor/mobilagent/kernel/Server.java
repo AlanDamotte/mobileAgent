@@ -3,6 +3,7 @@
  */
 package jus.aor.mobilagent.kernel;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.net.InetAddress;
 import java.net.URI;
@@ -77,7 +78,7 @@ public final class Server implements _Server{
 		//System.out.println("	Serveur: ajout service");
 		_Service<?> service;
 		try {
-			serverLoader.addURL(new URL("file:/home/romain/Documents/RICM4/S2/AR/mobileAgent/Projet/MobileAgent/"+codeBase));
+			serverLoader.addURL("Projet/MobileAgent/"+codeBase);
 			classe = (Class<?>)Class.forName(classeName,true,loader);
 			service = (_Service<?>) classe.getConstructor(Object[].class).newInstance(new Object[]{args});
 			agentServer.addService(name,service);
@@ -96,15 +97,17 @@ public final class Server implements _Server{
 	 */
 	public final void deployAgent(String classeName, Object[] args, String codeBase, List<String> etapeAddress, List<String> etapeAction) {
 			logger.log(Level.FINE, "	Serveur: deploy agent");
-			Class<_Agent> agentClass;
+			Class<?> agentClass;
 			_Agent agent;
 
 			try {
 				BAMAgentClassLoader loader = new BAMAgentClassLoader(this.loader);
+				loader.integrateCode(new Jar("Projet/MobileAgent/"+codeBase));
 				
-				agentClass = (Class<_Agent>)Class.forName(classeName,true,loader);
-
-				agent = (_Agent) agentClass.getConstructor(Object[].class).newInstance(new Object[]{args});
+				agentClass = (Class<?>)Class.forName(classeName,true,loader);
+				Constructor<?> cons = agentClass.getConstructor(Object[].class);
+				
+				agent = (Agent) cons.newInstance(new Object[]{args});
 				
 				agent.init(loader,agentServer, name,new Jar("/home/romain/Documents/RICM4/S2/AR/mobileAgent/Projet/MobileAgent/"+codeBase));
 				

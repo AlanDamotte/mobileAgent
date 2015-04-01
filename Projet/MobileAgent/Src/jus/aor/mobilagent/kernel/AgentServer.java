@@ -65,9 +65,7 @@ public class AgentServer implements Runnable{
 		
 		while(true){
 			try {
-				System.out.println("bonjour");
 				socketClient = socketServer.accept();
-				System.out.println("toto a une petite bite");
 				ObjectInputStream ois = new ObjectInputStream(socketClient.getInputStream());
 				jar = (Jar) ois.readObject();
 				BAMAgentClassLoader BAMAgent = new BAMAgentClassLoader(loader);

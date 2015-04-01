@@ -5,7 +5,10 @@
 package jus.aor.mobilagent.lookforhotel;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Set;
 
 import jus.aor.mobilagent.kernel._Service;
 import jus.aor.mobilagent.kernel._Action;
@@ -16,21 +19,20 @@ import jus.aor.mobilagent.kernel.Agent;
  * Représente un client effectuant une requête lui permettant d'obtenir les numéros de téléphone des hôtels répondant à son critère de choix.
  * @author  Morat
  */
-@SuppressWarnings("serial")
 public class LookForHotel extends Agent{
 	/** le critère de localisaton choisi */
 	private String localisation;
 	private LinkedList<String> listeH = new LinkedList<String>();
-	private LinkedList<String> listeN = new LinkedList<String>();
+	private HashMap<String,Numero> annuaire = new HashMap<String,Numero>();
 	private long time;
 	/**
 	 * Définition de l'objet représentant l'interrogation.
 	 * @param args les arguments n'en comportant qu'un seul qui indique le critère
 	 *          de localisation
 	 */
-	public LookForHotel(String... args){
+	public LookForHotel(Object... args){
 		time = call();
-		localisation = args[0];
+		localisation = (String)args[0];
 	}
 	/**
 	 * réalise une intérrogation
@@ -48,10 +50,9 @@ public class LookForHotel extends Agent{
 		@SuppressWarnings("unchecked")
 		@Override
 		public void execute() {
-			
+
 			_Service<?> service = server.getService("Hotels");
 			listeH.addAll((Collection<String>)service.call(localisation));
-			System.out.println(call());
 		}
 		
 	};
@@ -62,8 +63,8 @@ public class LookForHotel extends Agent{
 		@Override
 		public void execute() {
 			long timeFin = call();
-			for(int i=0; i<listeN.size(); i++){
-				System.out.println("Hotel: "+listeH.get(i)+" numero:"+listeN.get(i));
+			for(String key : annuaire.keySet()){
+				System.out.println("Hotel: "+ key + " Numéro: " + annuaire.get(key).toString());
 			}
 			System.out.println("Temps de recherche: "+(timeFin-time)+" ms");			
 		}
@@ -77,7 +78,7 @@ public class LookForHotel extends Agent{
 		@Override
 		public void execute() {
 			_Service<?> service = server.getService("Telephones");
-			listeN = (LinkedList<String>) service.call(listeH);
+			annuaire =  (HashMap<String,Numero>)service.call(listeH);
 		}
 		
 	};

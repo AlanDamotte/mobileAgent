@@ -48,13 +48,14 @@ public class Starter{
 	public Starter(String... args){
 		// récupération du niveau de log
 		java.util.logging.Level level;
-		try {
+		/*try {
 			level = Level.parse(System.getProperty("LEVEL"));			
 		}catch(NullPointerException e) {
 			level=java.util.logging.Level.OFF;
 		}catch(IllegalArgumentException e) {
 			level=java.util.logging.Level.SEVERE;
-		}
+		}*/
+		level=java.util.logging.Level.ALL;
 		try {
 			/* Mise en place du logger pour tracer l'application */
 			String loggerName = "jus/aor/mobilagent/"+InetAddress.getLocalHost().getHostName()+"/"+args[1];
@@ -86,8 +87,7 @@ public class Starter{
 	@SuppressWarnings("unchecked")
 	protected void createServer(int port, String name) throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		logger.log(Level.FINE, "Initialisation de la création du serveur");
-		loader = new BAMServerClassLoader();
-		loader.addURL(new URL("file:/home/romain/Documents/RICM4/S2/AR/mobileAgent/Projet/MobileAgent/Mobilagent.jar"));
+		loader = new BAMServerClassLoader(new URL[]{new URL("file:///Projet/MobileAgent/Mobilagent.jar")},this.getClass().getClassLoader());
 		classe = (Class<jus.aor.mobilagent.kernel.Server>)Class.forName("jus.aor.mobilagent.kernel.Server",true,loader);
 		server = classe.getConstructor(int.class,String.class).newInstance(port,name);
 	}
@@ -147,7 +147,6 @@ public class Starter{
 				serverAction.add(attrsEtape.getNamedItem("action").getNodeValue());
 				serverAddress.add(attrsEtape.getNamedItem("server").getNodeValue());
 			}
-			System.out.println(classeName + " " + args + " " + codeBase + " " + serverAddress + " " + serverAction);
 			deployAgent(classeName, args, codeBase,serverAddress, serverAction);
 		}
 	}
